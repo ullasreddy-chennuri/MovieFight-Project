@@ -4,8 +4,9 @@ const createAutoComplete = ({
     onOptionSelect,
     inputValue,
     fetchData
-}) => {
-    root.innerHTML = `
+}) => {         // using arrow function.
+    // creating HTML template on root section/division using inner html tag of Java script.
+    root.innerHTML = `      
         <label><b>Search </b></label>
         <input class="input"/>
         <div class="dropdown">
@@ -19,7 +20,7 @@ const createAutoComplete = ({
     const dropdown = root.querySelector('.dropdown');
     const resultsWrapper = root.querySelector('.results');
 
-    const onInput = async(event) => {
+    const onInput = async(event) => {       // fetching data on entering input
         const items = await fetchData(event.target.value);
         if (!items.length) {
             dropdown.classList.remove('is-active');
@@ -28,7 +29,7 @@ const createAutoComplete = ({
 
         resultsWrapper.innerHTML = '';
         dropdown.classList.add('is-active');
-        for (let item of items) {
+        for (let item of items) {       // to create drop down list(option list in dropdown).
             const option = document.createElement('a');
 
             option.classList.add('dropdown-item');
@@ -43,9 +44,9 @@ const createAutoComplete = ({
         }
     };
 
-    input.addEventListener('input', debounce(onInput, 500));
+    input.addEventListener('input', debounce(onInput, 500));    // calling debounce function to show options in dropdown after stop typing.
 
-    document.addEventListener('click', event => {
+    document.addEventListener('click', event => {   // to inactive the options/dropdown after clicking on screen other than options(basically exiting).
         if (!root.contains(event.target)) {
             dropdown.classList.remove('is-active');
         }
